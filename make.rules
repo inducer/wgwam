@@ -54,7 +54,7 @@ makedir:
 
 grantdest:
 ifeq "$(MAKELEVEL)" "0"
-	chmod g+rw,a+r -R $(dest_path)/{*.php,billing,chat,gimmicks,images,inet,services,shopping,system}
+	chmod u=rwX,og=rX -R $(dest_path)/{*.php,billing,chat,gimmicks,images,inet,services,shopping,system}
 endif
 
 clean:
