@@ -34,7 +34,11 @@ m4_include(WAMroot/`mac.inc')m4_dnl
     "where tblBillingIOU.BillingEntryID=tblBillingEntry.BillingEntryID and ".
       "tblBillingEntry.RecipientID=tblPerson.PersonID and ".
       "tblBillingEntry.StoreID=tblStore.StoreID and ".
-      "tblBillingIOU.DebtorID=$person_id and Done=0 and tblBillingIOU.Amount<>0 ".
+      "tblBillingIOU.DebtorID=$person_id and ".
+      "Done=0 and ".
+      "tblBillingIOU.Paid=0 and ".
+      "tblBillingIOU.Amount<>0 and ".
+      "tblBillingIOU.Amount<>0 and ".
     "order by Name,Due,Text");
   
   while ($include_debts && $row = mysql_fetch_array($rh)) {
@@ -58,8 +62,11 @@ m4_include(WAMroot/`mac.inc')m4_dnl
     "where tblBillingIOU.BillingEntryID=tblBillingEntry.BillingEntryID and ".
       "DebtorID=PersonID and ".
       "tblBillingEntry.StoreID=tblStore.StoreID and ".
-      "RecipientID=$person_id and Done=0 and tblBillingIOU.Amount<>0 ".
-      "and DebtorID<>$person_id ".
+      "RecipientID=$person_id and ".
+      "tblBillingIOU.Amount<>0 and ".
+      "tblBillingIOU.Paid=0 and ".
+      "Done=0 and ".
+      "DebtorID<>$person_id ".
     "order by Name,Due,Text");
   
   while ($include_assets && $row = mysql_fetch_array($rh)) {
