@@ -82,6 +82,4 @@ m4_include(WAMroot/`mac.inc')m4_dnl
     echo "P", $row["Debtor"], ": ", $row["Text"]," (", $row["Store"], ")\n";
     echo "^\n";
   }
-echo "DONE!"
 ?>
-
