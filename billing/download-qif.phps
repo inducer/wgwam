@@ -38,7 +38,7 @@ m4_include(WAMroot/`mac.inc')m4_dnl
       "Done=0 and ".
       "tblBillingIOU.Paid=0 and ".
       "tblBillingIOU.Amount<>0 and ".
-      "tblBillingIOU.Amount<>0 and ".
+      "tblBillingIOU.Amount<>0 ".
     "order by Name,Due,Text");
   
   while ($include_debts && $row = mysql_fetch_array($rh)) {
