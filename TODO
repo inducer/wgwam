@@ -1,0 +1,9 @@
+* database creation script
+* add column 'ratified' to IOUs, demand ratification before payment
+  (only ratified IOUs appear in assets)
+* add 'view' button to billing survey
+* make distribution
+* put resources in database, dynamically generate that
+* fix off-by-one in internet usage, secure "mark as paid"
+* put connect/disconnect stuff in cvs module
+* make it configurable

@@ -1,0 +1,73 @@
+# -------------------------------------------
+# Status variables
+# -------------------------------------------
+
+ifndef pkg_root
+  pkg_root=.
+endif
+
+ifndef subdir
+  subdir=.
+endif
+
+ifndef dots
+  dots=
+endif
+
+ifndef images
+  images=
+endif
+
+target_path=$(dest_path)/$(subdir)
+
+export dest_path
+
+# -------------------------------------------
+# Implicit rule
+# -------------------------------------------
+$(target_path)/%.php : %.phps
+	m4 --prefix-builtins $*.phps -DWAMroot=$(pkg_root) > $(target_path)/$*.php
+
+$(target_path)/%.php : %.php
+	cp $*.php $(target_path)/$*.php
+  
+$(target_path)/%.png : %.png
+	cp $*.png $(target_path)/$*.png
+
+$(target_path)/%.gif : %.gif
+	cp $*.gif $(target_path)/$*.gif
+	
+$(target_path)/%.jpeg : %.jpeg
+	cp $*.jpeg $(target_path)/$*.jpeg
+
+# -------------------------------------------
+# Explicit rules
+# -------------------------------------------
+
+.PHONY: clean enter leave copy grantdest all makedir $(dirs)
+
+all : makedir $(dirs) \
+  $(addprefix $(target_path)/,$(files:.phps=.php) $(images)) copy grantdest
+  
+makedir:
+	mkdir -p $(target_path)
+
+grantdest:
+ifeq "$(MAKELEVEL)" "0"
+	chmod g+rw,a+r -R $(dest_path)/{*.php,billing,chat,gimmicks,images,inet,services,shopping,system}
+endif
+
+clean:
+	find $(dest_path)/ -name '*.php' -exec rm '{}' \;
+	find $(dest_path)/ -name '*.jpeg' -exec rm '{}' \;
+	find $(dest_path)/ -name '*.gif' -exec rm '{}' \;
+	find -name '*~' -exec rm '{}' \;
+        
+$(dirs):
+	cd $@; $(MAKE) -f $(pkg_root)/../makefile.default pkg_root=$(pkg_root)/.. dots=$(dots).. subdir=$(subdir)/$@
+
+# -------------------------------------------
+# Include file dependency
+# -------------------------------------------
+
+$(target_path)/*.php : $(pkg_root)/mac.inc

@@ -1,0 +1,4 @@
+dirs = 
+files = $(wildcard *.phps)
+images = $(wildcard *.gif) $(wildcard *.jpeg) $(wildcard *.png)
+include $(pkg_root)/make.rules
